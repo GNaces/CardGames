@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Betting Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .card {
+      width: 120px;
+      height: 180px;
+      border: 1px solid black;
+      margin: 0 10px;
+      display: inline-block;
+      text-align: center;
+      line-height: 180px;
+      font-size: 20px;
+    }
+    #result {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Card Betting Game</h1>
+  <div class="container">
+    <div class="cards">
+      <div class="card" id="card1"></div>
+      <div class="card" id="card2"></div>
+      <div class="card" id="card3"></div>
+    </div>
+    <input type="number" id="betAmount" placeholder="Enter your bet">
+    <button onclick="playGame()">Play</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function getRandomCard() {
+      const cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+      return cards[Math.floor(Math.random() * cards.length)];
+    }
+
+    function playGame() {
+      const betAmount = parseInt(document.getElementById('betAmount').value);
+      if (isNaN(betAmount) || betAmount <= 0) {
+        alert('Please enter a valid bet amount!');
+        return;
+      }
+
+      const card1 = getRandomCard();
+      const card2 = getRandomCard();
+      const card3 = getRandomCard();
+
+      document.getElementById('card1').textContent = card1;
+      document.getElementById('card2').textContent = card2;
+      document.getElementById('card3').textContent = card3;
+
+      const total = parseInt(card1) + parseInt(card2) + parseInt(card3);
+      let result = '';
+
+      if (total >= 21) {
+        result = 'You win!';
+      } else {
+        result = 'You lose!';
+      }
+
+      document.getElementById('result').textContent = `${result} Total: ${total}`;
+    }
+  </script>
+</body>
+</html>
